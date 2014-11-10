@@ -12,13 +12,20 @@ Our variables are the frequency of letters and frequency of bi-grams. We will si
 The activities we need to accomplish are as follows: 1. Set up our environment to be able to access and analyze the data. 2. Test the environment to ensure data is being collected correctly. 3. Process the data and store results for easy readability and manipulation. 4. Verify results, checking for any outliers. Ensure no errors occurred in the processing of data. 5. Analyze results and determine method of visualizing resulting data. 6. Interpret results and form any meaningful conclusions. 7. Reflect on the project as a whole; suggest changes/identify errors. 8. Write project report.
 
 Timeline:
+
 Week 1: Steps 1, 2
+
 Week 2: Steps 3, 4
+
 Week 3: Steps 5, 6
+
 Week 4: Steps 6, 7
 
 Resources:
+
 www.nltk.org
+
 www.nltk.org/book/ch02.html
+
 www.nltk.org/_modules/nltk/probability.html
 
