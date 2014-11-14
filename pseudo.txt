@@ -1,0 +1,16 @@
+import nltk
+from nltk.corpus import gutenberg
+from nltk.probability import FreqDist #(or ConditionalFDist()?)
+
+#store FreqDist's
+#index is the length of the word, 0 is for all words
+a = []
+for i in range(30):
+    a.append(FreqDist())
+
+for file in gutenberg.fileids():
+    for word in gutenberg.words(file):
+        for character in word:
+            if(character.isalpha()):
+                a[len(word)][character.lower()] += 1
+                a[0][character.lower()] += 1
