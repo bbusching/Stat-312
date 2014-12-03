@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 import string
 import nltk
@@ -5,108 +6,95 @@ from nltk.corpus import brown
 from nltk.corpus import webtext
 from nltk.corpus import inaugural
 from nltk.corpus import gutenberg
+from nltk.corpus import genesis
 from nltk.probability import FreqDist #(or ConditionalFDist()?)
 
 def main():
 #store FreqDist's
 #index is the length of the word, 0 is for all words
-  english_letters = LetFreq()
-  brown_letters = LetFreq()
-  web_letters = LetFreq()
-  inaugural_letters = LetFreq()
-  gutenberg_letters = LetFreq()
+  samples = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+  brown_letters = FreqDist()
+  web_letters = FreqDist()
+  inaugural_letters = FreqDist()
+  gutenberg_letters = FreqDist()
+  genesis_letters = FreqDist()
 
   for file in gutenberg.fileids():
     for word in gutenberg.words(file):
       for character in word:
-        if(character in string.letters and len(word) < 30):
-          english_letters.add_obsv(len(word), character.lower())
-          english_letters.add_obsv(0, character.lower())
-          gutenberg_letters.add_obsv(len(word), character.lower())
-          gutenberg_letters.add_obsv(0, character.lower())
+        if(character in string.letters):
+            gutenberg_letters[character.upper()] += 1
 
   for file in brown.fileids():
     for word in brown.words(file):
       for character in word:
-        if(character in string.letters and len(word) < 30):
-          english_letters.add_obsv(len(word), character.lower())
-          english_letters.add_obsv(0, character.lower())
-          brown_letters.add_obsv(0, character.lower())
-          brown_letters.add_obsv(len(word), character.lower())
+        if(character in string.letters):
+            brown_letters[character.upper()] += 1
 
   for file in webtext.fileids():
     for word in webtext.words(file):
       for character in word:
-        if(character in string.letters) and len(word) < 30:
-          english_letters.add_obsv(len(word), character.lower())
-          english_letters.add_obsv(0, character.lower())
-          web_letters.add_obsv(0, character.lower())
-          web_letters.add_obsv(len(word), character.lower())
+        if(character in string.letters):
+            web_letters[character.upper()] += 1
 
   for file in inaugural.fileids():
     for word in inaugural.words(file):
       for character in word:
-        if(character in string.letters and len(word) < 30):
-          english_letters.add_obsv(len(word), character.lower())
-          english_letters.add_obsv(0, character.lower())
-          inaugural_letters.add_obsv(0, character.lower())
-          inaugural_letters.add_obsv(len(word), character.lower())
+        if(character in string.letters):
+            inaugural_letters[character.upper()] += 1
+
+  for file in genesis.fileids():
+    for word in genesis.words(file):
+      for character in word:
+        if(character in string.letters):
+            genesis_letters[character.upper()] += 1
 
   with open("results.txt",'w') as f:
     sys.stdout = f
-    f.write("ENGLISH\n")
+    f.write("GENESIS\n")
     f.write("---------------------\n")
-    english_letters.tabulate()
+    for let in samples:
+        f.write(let + "\t\t")
+    f.write("\n")
+    for let in samples:
+        print("%.5f\t" % genesis_letters.freq(let), end='')
     f.write("\n\n\n")
     f.write("GUTENBERG\n")
     f.write("---------------------\n")
-    gutenberg_letters.tabulate()
+    for let in samples:
+        f.write(let + "\t\t")
+    f.write("\n")
+    for let in samples:
+        print("%.5f\t" % gutenberg_letters.freq(let), end='')
     f.write("\n\n\n")
     f.write("WEBTEXT\n")
     f.write("---------------------\n")
-    web_letters.tabulate()
+    for let in samples:
+        f.write(let + "\t\t")
+    f.write("\n")
+    for let in samples:
+        print("%.5f\t" % web_letters.freq(let), end='')
+
     f.write("\n\n\n")
     f.write("INAUGURAL\n")
     f.write("---------------------\n")
-    inaugural_letters.tabulate()
+    for let in samples:
+        f.write(let + "\t\t")
+    f.write("\n")
+    for let in samples:
+        print("%.5f\t" % inaugural_letters.freq(let), end='')
+
     f.write("\n\n\n")
     f.write("BROWN\n")
     f.write("---------------------\n")
-    brown_letters.tabulate()
+    for let in samples:
+        f.write(let + "\t\t")
+    f.write("\n")
+    for let in samples:
+        print("%.5f\t" % brown_letters.freq(let), end='')
+
     f.write("\n\n\n")
-
-
-
-
-class LetFreq():
-  def __init__(self):
-    self.freq_dists = []
-    for i in range(30): #(30-1) is the longest length word
-      self.freq_dists.append(FreqDist())
-
-  def add_obsv(self, length, obsv):
-    self.freq_dists[length][obsv] += 1
-
-  def get_fdist(self, length):
-    return self.freq_dists[length]
-
-  def tabulate(self):
-    for i in range(len(self.freq_dists)):
-      print("Length: " + str(i))
-      self.freq_dists[i].tabulate()
-
-  def __repr__(self):
-    string_builder = []
-    for fdist in self.freq_dists:
-      string_builder.append(fdist)
-    return "\n".join(string_builder)
-
-  def __str__(self):
-    string_builder = []
-    for fdist in self.freq_dists:
-      string_builder.append(fdist)
-    string = "".join(string_builder.__repr__())
-    return string
 
 
 if __name__=="__main__":
