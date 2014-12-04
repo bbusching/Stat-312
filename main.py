@@ -54,31 +54,39 @@ def main():
     sys.stdout = f
     f.write("GENESIS\n")
     for let in samples:
-        print("%.5f\n" % genesis_letters.freq(let))
+        print(str(genesis_letters[let]))
   
   with open("gutenberg-letter-freq.txt", 'w') as f:
     sys.stdout = f
     f.write("GUTENBERG\n")
     for let in samples:
-        print("%.5f\n" % gutenberg_letters.freq(let))
+        print(str(gutenberg_letters[let]))
   with open("webtext-letter-freq.txt", 'w') as f:
     sys.stdout = f
     f.write("WEBTEXT\n")
     for let in samples:
-        print("%.5f\n" % web_letters.freq(let))
+        print(str(web_letters[let]))
   with open("inaugural-letter-freq.txt", 'w') as f:
     sys.stdout = f
 
     f.write("INAUGURAL\n")
     for let in samples:
-        print("%.5f\n" % inaugural_letters.freq(let))
+        print(str(inaugural_letters[let]))
   with open("brown-letter-freq.txt", 'w') as f:
     sys.stdout = f
 
     f.write("BROWN\n")
     for let in samples:
-        print("%.5f\n" % brown_letters.freq(let), end='')
-
+        print(str(brown_letters[let]))
+  
+  with open("letter-freq.txt", 'w') as f:
+    corpora = [gutenberg_letters, web_letters, inaugural_letters,
+        brown_letters, genesis_letters]
+    f.write("GUTENBERG,WEBTEXT,INAUGURAL,BROWN,GENESIS\n")
+    for let in samples:
+      for corpus in corpora:
+        f.write(str(corpus[let]) + ",")
+      f.write("\n")
 
 
 if __name__=="__main__":
