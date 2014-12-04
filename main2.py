@@ -1,6 +1,4 @@
 import sys
-import string
-import nltk
 from nltk.corpus import brown
 from nltk.corpus import webtext
 from nltk.corpus import inaugural
