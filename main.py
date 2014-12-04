@@ -50,51 +50,35 @@ def main():
         if(character in string.letters):
             genesis_letters[character.upper()] += 1
 
-  with open("results.txt",'w') as f:
+  with open("genesis-letter-freq.txt",'w') as f:
     sys.stdout = f
     f.write("GENESIS\n")
-    f.write("---------------------\n")
     for let in samples:
-        f.write(let + "\t\t")
-    f.write("\n")
-    for let in samples:
-        print("%.5f\t" % genesis_letters.freq(let), end='')
-    f.write("\n\n\n")
+        print("%.5f\n" % genesis_letters.freq(let))
+  
+  with open("gutenberg-letter-freq.txt", 'w') as f:
+    sys.stdout = f
     f.write("GUTENBERG\n")
-    f.write("---------------------\n")
     for let in samples:
-        f.write(let + "\t\t")
-    f.write("\n")
-    for let in samples:
-        print("%.5f\t" % gutenberg_letters.freq(let), end='')
-    f.write("\n\n\n")
+        print("%.5f\n" % gutenberg_letters.freq(let))
+  with open("webtext-letter-freq.txt", 'w') as f:
+    sys.stdout = f
     f.write("WEBTEXT\n")
-    f.write("---------------------\n")
     for let in samples:
-        f.write(let + "\t\t")
-    f.write("\n")
-    for let in samples:
-        print("%.5f\t" % web_letters.freq(let), end='')
+        print("%.5f\n" % web_letters.freq(let))
+  with open("inaugural-letter-freq.txt", 'w') as f:
+    sys.stdout = f
 
-    f.write("\n\n\n")
     f.write("INAUGURAL\n")
-    f.write("---------------------\n")
     for let in samples:
-        f.write(let + "\t\t")
-    f.write("\n")
-    for let in samples:
-        print("%.5f\t" % inaugural_letters.freq(let), end='')
+        print("%.5f\n" % inaugural_letters.freq(let))
+  with open("brown-letter-freq.txt", 'w') as f:
+    sys.stdout = f
 
-    f.write("\n\n\n")
     f.write("BROWN\n")
-    f.write("---------------------\n")
     for let in samples:
-        f.write(let + "\t\t")
-    f.write("\n")
-    for let in samples:
-        print("%.5f\t" % brown_letters.freq(let), end='')
+        print("%.5f\n" % brown_letters.freq(let), end='')
 
-    f.write("\n\n\n")
 
 
 if __name__=="__main__":
